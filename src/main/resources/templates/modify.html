@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movie modification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet"th:href="@{../bootstrap.min.css}" />
+</head>
+<body>
+
+<div class="container">
+    <div class="col-md-12">
+    <h1>Modify this movie</h1>
+    <form th:object="${movie}" th:action="@{../save}" action="#" method="post">
+        <label for="id"></label>
+        <input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="name">Title</label>
+        <input type="text" id="name" th:field="*{name}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="duration">Duration (min)</label>
+        <input type="text" id="duration" th:field="*{duration}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="rating">Rating</label>
+        <input type="text" id="rating" th:field="*{rating}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
+
+        <select id="catlist" th:field="*{genre}">
+            <option th:each="genre :${genre}" th:value="${genre.genreid}" th:text="${genre.genre}"></option>
+        </select>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <input class="btn btn-success" type="submit" value="Save"></input>
+    </form>
+    </div>
+</div>
+</body>
+</html>

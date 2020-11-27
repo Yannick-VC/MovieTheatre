@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Movies</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{../bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+	<div class="col-md-12">
+		<h2 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]] to the movie theatre!</h2>
+	</div>
+    <table class="table table-striped">
+		<tr>
+		    <th>Title</th>
+		    <th>Duration (min)</th>
+		    <th>Rating</th>
+			<th>Genre</th>
+			<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+				<th></th>
+				<th></th>
+				<th></th>
+			</div>
+			<div th:if="!${#authorization.expression('hasAuthority(''ADMIN'')')}">
+				<th></th>
+			</div>
+		</tr>  
+    	<tr th:each = "movie : ${movies}">
+    		<td th:text="${movie.name}"></td>
+    		<td th:text="${movie.duration}"></td>
+    		<td th:text="${movie.rating}"></td>
+			<td th:text="${movie.genre.genre}"></td>
+			<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+				<td><a th:href="@{/buy/{id}(id=${movie.id})}" class="btn btn-xs btn-success">Buy</a></td>
+				<td><a th:href="@{/modify/{id}(id=${movie.id})}" class="btn btn-xs btn-warning">Modify</a></td>
+				<td><a th:href="@{/delete/{id}(id=${movie.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+			</div>
+			<div th:if="!${#authorization.expression('hasAuthority(''ADMIN'')')}">
+				<td><a th:href="@{/buy/{id}(id=${movie.id})}" class="btn btn-xs btn-success">Buy</a></td>
+			</div>
+    	</tr>
+     </table>
+	<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+		<a th:href="@{/movies}" class="btn btn-cs btn-primary">JSON</a>
+		<a href="/add" class="btn btn-primary">Add movie</a>
+	</div>
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+</div>    	
+</body>
+</html>

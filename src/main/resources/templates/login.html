@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Movie theatre!</title>
+    <link type="text/css" rel="stylesheet" th:href="@{../bootstrap.min.css}" />
+</head>
+<body>
+<div class="col-md-4 col-md-offset-4">
+    <div class="alert alert-danger" th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div class="alert alert-warning" th:if="${param.logout}">
+        You have been logged out.
+    </div>
+    <div class="special2 special">
+        <h1>Welcome to Yannick's movie theatre!</h1>
+        <form th:action="@{/login}" method="post">
+            <div><label> User Name : <input type="text" name="username" class="form-control special2"/> </label></div>
+            <div><label> Password: <input type="password" name="password" class="form-control special2"/> </label></div>
+            <div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
+        </form>
+        <a th:href="@{/signup}">Sign up</a>
+    </div>
+</div>
+</body>
+</html>
