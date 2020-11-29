@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <div class="col-md-12">
-        <h1>Add a movie</h1>
+        <h1>Buy tickets for this movie</h1>
         <form th:object="${movie}">
             <label for="id"></label>
             <input type="hidden" id="id" th:field="*{id}" readonly="readonly"/>
@@ -26,7 +26,7 @@
 
             <label>Amount of tickets: </label>
             <select>
-                <option th:each="n : ${#numbers.sequence(1,10)}" th:value="${n}" th:text="${n}"/>
+                <option th:each="n : ${#numbers.sequence(1,999)}" th:value="${n}" th:text="${n}"/>
             </select>
             <div style="clear: both; display: block; height: 10px;"></div>
             <a th:href="@{/bought}" class="btn btn-cs btn-success">BUY!</a>

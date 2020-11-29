@@ -18,11 +18,6 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 		  	<label for="rating">Rating</label>
 			<input type="text" id="rating" th:field="*{rating}" class="form-control"/>
-			<div style="clear: both; display: block; height: 10px;"></div>						
-		  	<label for="genrelist">Genre</label>
-			 <select id="genrelist" th:field="*{genre}" class="form-control">
-       			<option th:each="genre: ${genre}" th:value="${genre.genreid}" th:text="${genre.genre}"></option>
-    		</select>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" class="btn btn-primary" value="Save"></input>
 		</form>

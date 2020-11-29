@@ -1,7 +1,6 @@
 package com.example.demo.domain;
 
-import org.springframework.data.repository.CrudRepository;
-
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findByUsername(String username);
+public interface UserRepository{
+    public User findByUsername(String username);
+    public void save(User user);
 }

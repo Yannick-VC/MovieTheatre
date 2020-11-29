@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.GenreRepository;
 import com.example.demo.domain.Movie;
+import com.example.demo.domain.MovieDAO;
 import com.example.demo.domain.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,11 +17,9 @@ import java.util.Optional;
 
 @Controller
 public class MovieController {
-    @Autowired
-    private MovieRepository MRepo;
 
     @Autowired
-    private GenreRepository GRepo;
+    private MovieDAO movieDAO;
 
     @RequestMapping(value= "/login")
     public String login() {
@@ -30,27 +28,28 @@ public class MovieController {
 
     @RequestMapping(value = {"/", "/movielist"})
     public String MovieList(Model model) {
-        model.addAttribute("movies", MRepo.findAll());
-        model.addAttribute("genres", GRepo.findAll());
+        List<Movie> movies = movieDAO.findAll();
+        model.addAttribute("movies", movies);
         return "movielist";
     }
 
     @RequestMapping(value = "/buy/{id}", method = RequestMethod.GET)
-    public String BuyTicket(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("movie", MRepo.findById(id));
+    public String BuyTicket(@PathVariable("id") int id, Model model) {
+        Movie movie = movieDAO.findOne(id);
+        model.addAttribute("movie", movie);
         return "buy";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/add")
     public String AddMovie(Model model) {
         model.addAttribute("movie", new Movie());
-        model.addAttribute("genre", GRepo.findAll());
         return "addmovie";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String Save(Movie movie) {
-        MRepo.save(movie);
+        movieDAO.save(movie);
         return "redirect:movielist";
     }
 
@@ -61,16 +60,16 @@ public class MovieController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String Delete(@PathVariable("id") Long id, Model model) {
-        MRepo.deleteById(id);
+    public String Delete(@PathVariable("id") int id, Model model) {
+        movieDAO.delete(id);
         return "redirect:../movielist";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.GET)
-    public String ModifyMovie(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("movie", MRepo.findById(id));
-        model.addAttribute("genre", GRepo.findAll());
+    public String ModifyMovie(@PathVariable("id") int id, Model model) {
+        Movie movie = movieDAO.findOne(id);
+        model.addAttribute("movie", movie);
         return "modify";
     }
 
@@ -78,14 +77,13 @@ public class MovieController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value="/movies", method = RequestMethod.GET)
     public @ResponseBody List<Movie> MovieListREST() {
-        System.out.print((List<Movie>) MRepo.findAll());
-        return (List<Movie>) MRepo.findAll();
+        return (List<Movie>) movieDAO.findAll();
     }
 
     // REST get movie on ID
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value="/movielist/{id}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Movie> findMovieOptional(@PathVariable("id") Long id) {
-        return MRepo.findById(id);
+    public @ResponseBody Optional<Movie> findMovieOptional(@PathVariable("id") int id) {
+        return Optional.ofNullable(movieDAO.findOne(id));
     }
 }

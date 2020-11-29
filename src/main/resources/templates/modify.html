@@ -23,10 +23,6 @@
         <label for="rating">Rating</label>
         <input type="text" id="rating" th:field="*{rating}" />
         <div style="clear: both; display: block; height: 10px;"></div>
-
-        <select id="catlist" th:field="*{genre}">
-            <option th:each="genre :${genre}" th:value="${genre.genreid}" th:text="${genre.genre}"></option>
-        </select>
         <div style="clear: both; display: block; height: 10px;"></div>
         <input class="btn btn-success" type="submit" value="Save"></input>
     </form>

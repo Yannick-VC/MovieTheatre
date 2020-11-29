@@ -9,25 +9,19 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String name;
     private int duration;
     private int rating;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "genreid")
-    private Genre genre;
-
-    public Movie(String name, int duration, int rating, Genre genre) {
+    public Movie(String name, int duration, int rating) {
         super();
         this.name = name;
         this.duration = duration;
         this.rating = rating;
-        this.genre = genre;
     }
 
     public Movie() {
-
     }
 
     public long getId() {
@@ -58,14 +52,6 @@ public class Movie {
         this.duration = duration;
     }
 
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
 
     @Override
     public String toString() {
@@ -74,7 +60,6 @@ public class Movie {
                 ", name='" + name + '\'' +
                 ", duration=" + duration +
                 ", rating=" + rating +
-                ", genre=" + genre +
                 '}';
     }
 }

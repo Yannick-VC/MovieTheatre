@@ -29,7 +29,6 @@
     		<td th:text="${movie.name}"></td>
     		<td th:text="${movie.duration}"></td>
     		<td th:text="${movie.rating}"></td>
-			<td th:text="${movie.genre.genre}"></td>
 			<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
 				<td><a th:href="@{/buy/{id}(id=${movie.id})}" class="btn btn-xs btn-success">Buy</a></td>
 				<td><a th:href="@{/modify/{id}(id=${movie.id})}" class="btn btn-xs btn-warning">Modify</a></td>

@@ -8,7 +8,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    private long id;
 
     // Username with unique constraint
     @Column(name = "username", nullable = false, unique = true)
@@ -22,8 +22,6 @@ public class User {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-
 
     public User() {
     }
