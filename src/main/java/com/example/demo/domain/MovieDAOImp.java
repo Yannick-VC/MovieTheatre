@@ -20,7 +20,6 @@ public class MovieDAOImp implements MovieDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    //Add a product to the db
     public void save(Movie movie){
         String sql = "insert into movies(name, duration, rating) values(?,?,?)";
         Object[] parameters = new Object[] { movie.getName(), movie.getDuration(),
@@ -28,15 +27,14 @@ public class MovieDAOImp implements MovieDAO{
         jdbcTemplate.update(sql, parameters);
     }
 
-    //Update a product based on the given id
     public void update(Movie movie){
-        String sql = "UPDATE movieid set name = ? , duration = ? , rating = ? where id = ?";
+        String sql = "UPDATE movies set name = ? , duration = ? , rating = ? where movieid = ?";
         Object[] parameters = new Object[] { movie.getName(), movie.getDuration(),
                 movie.getRating(), movie.getId()};
         jdbcTemplate.update(sql, parameters);
 
     }
-    //Delete a product based on the given id
+
     public void delete(int id){
         String sql = "delete from movies where movieid = ?";
         Object[] parameters = new Object[] { id };

@@ -49,6 +49,12 @@ public class MovieController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String Save(Movie movie) {
+        movieDAO.update(movie);
+        return "redirect:movielist";
+    }
+
+    @RequestMapping(value = "/adding", method = RequestMethod.POST)
+    public String AddMovie(Movie movie) {
         movieDAO.save(movie);
         return "redirect:movielist";
     }

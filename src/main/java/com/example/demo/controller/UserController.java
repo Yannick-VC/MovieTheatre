@@ -38,7 +38,9 @@ public class UserController {
                 newUser.setUsername(signupForm.getUsername());
                 newUser.setEmail((signupForm.getEmail()));
                 newUser.setRole("USER");
-                if (repository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
+
+
+                if (1==1) { // Check if user exists
                     repository.save(newUser);
                 }
                 else {

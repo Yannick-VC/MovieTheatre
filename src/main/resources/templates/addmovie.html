@@ -9,7 +9,7 @@
 	<div class="container">
 		<div class="col-md-12">
 		<h1>Add a movie</h1>
-		<form th:object="${movie}" th:action="@{save}" action="#" method="post">
+		<form th:object="${movie}" th:action="@{adding}" action="#" method="post">
 		  	<label for="title">Title</label>
 			<input type="text" id="title" th:field="*{name}" class="form-control"/>
 			<div style="clear: both; display: block; height: 10px;"></div>
