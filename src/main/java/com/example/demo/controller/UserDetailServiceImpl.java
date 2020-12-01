@@ -14,11 +14,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserRepository repository;
 
+    //Establishing the userRepository
     @Autowired
     public UserDetailServiceImpl(UserRepository userRepository) {
         this.repository = userRepository;
     }
 
+    //Loading in users
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {

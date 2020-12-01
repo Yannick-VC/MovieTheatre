@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class UserRowMapper implements RowMapper<User> {
 
-    //When displaying products, I can map the database rows to the displayed rows
+    //RowMapper for the User
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         user.setId(rs.getLong("id"));

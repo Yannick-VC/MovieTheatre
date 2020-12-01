@@ -19,12 +19,14 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
+    //Returning the sign-up form
     @RequestMapping(value = "signup")
     public String addUser(Model model){
         model.addAttribute("signupform", new SignUpForm());
         return "signup";
     }
 
+    //Check if the Sign-up has any errors and perform all checks
     @RequestMapping(value = "saveuser", method = RequestMethod.POST)
     public String save(@Valid @ModelAttribute("signupform") SignUpForm signupForm, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) { // validation errors
@@ -40,7 +42,7 @@ public class UserController {
                 newUser.setRole("USER");
 
 
-                if (1==1) { // Check if user exists
+                if (1==1) {
                     repository.save(newUser);
                 }
                 else {

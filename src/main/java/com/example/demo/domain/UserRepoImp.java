@@ -19,6 +19,7 @@ public class UserRepoImp implements UserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //Simple function to get all of the information of a user
     @Override
     public User findByUsername(String username) {
         String sql = "select id, username, passwordHash, role, email from users where username = ? LIMIT 1";
@@ -29,6 +30,7 @@ public class UserRepoImp implements UserRepository {
         return user;
     }
 
+    //Saving a user and inserting the user into the table "users"
     public void save(User user) {
         String sql = "insert into users(username, passwordHash, role, email) values(?,?,?,?)";
         Object[] parameters = new Object[]{user.getUsername(), user.getPasswordHash(),

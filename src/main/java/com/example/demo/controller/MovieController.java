@@ -21,11 +21,13 @@ public class MovieController {
     @Autowired
     private MovieDAO movieDAO;
 
+    //Login page display
     @RequestMapping(value= "/login")
     public String login() {
         return "login";
     }
 
+    //Returning the list of all movies with their data
     @RequestMapping(value = {"/", "/movielist"})
     public String MovieList(Model model) {
         List<Movie> movies = movieDAO.findAll();
@@ -33,6 +35,7 @@ public class MovieController {
         return "movielist";
     }
 
+    //Buying of movietickets by their ID
     @RequestMapping(value = "/buy/{id}", method = RequestMethod.GET)
     public String BuyTicket(@PathVariable("id") int id, Model model) {
         Movie movie = movieDAO.findOne(id);
@@ -40,6 +43,7 @@ public class MovieController {
         return "buy";
     }
 
+    //Adding a movie if the person has the required authorization
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/add")
     public String AddMovie(Model model) {
@@ -47,23 +51,27 @@ public class MovieController {
         return "addmovie";
     }
 
+    //Calling the update function to modify a movie
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String Save(Movie movie) {
         movieDAO.update(movie);
         return "redirect:movielist";
     }
 
+    //Adding a movie to the list by calling the save function.
     @RequestMapping(value = "/adding", method = RequestMethod.POST)
     public String AddMovie(Movie movie) {
         movieDAO.save(movie);
         return "redirect:movielist";
     }
 
+    //Returning the bought page
     @RequestMapping(value = "/bought")
     public String Bought() {
         return "/bought";
     }
 
+    //Deleting the selected movie if the user has the authority to do so.
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String Delete(@PathVariable("id") int id, Model model) {
@@ -71,6 +79,7 @@ public class MovieController {
         return "redirect:../movielist";
     }
 
+    //Modifying the movie by it's ID
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.GET)
     public String ModifyMovie(@PathVariable("id") int id, Model model) {

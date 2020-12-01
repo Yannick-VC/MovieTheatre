@@ -20,6 +20,7 @@ public class MovieDAOImp implements MovieDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //Saving a movie
     public void save(Movie movie){
         String sql = "insert into movies(name, duration, rating) values(?,?,?)";
         Object[] parameters = new Object[] { movie.getName(), movie.getDuration(),
@@ -27,6 +28,7 @@ public class MovieDAOImp implements MovieDAO{
         jdbcTemplate.update(sql, parameters);
     }
 
+    //SQL statement for updating already existing movie
     public void update(Movie movie){
         String sql = "UPDATE movies set name = ? , duration = ? , rating = ? where movieid = ?";
         Object[] parameters = new Object[] { movie.getName(), movie.getDuration(),
@@ -35,6 +37,7 @@ public class MovieDAOImp implements MovieDAO{
 
     }
 
+    //Delete query for movies
     public void delete(int id){
         String sql = "delete from movies where movieid = ?";
         Object[] parameters = new Object[] { id };
@@ -42,8 +45,7 @@ public class MovieDAOImp implements MovieDAO{
 
     }
 
-    //Find one allows me to reduce code in other functions
-    //As this functionnality is often used, I created it and call it from other functions
+    //Finding a movie by the ID and returning the ID, name, duration and rating
     public Movie findOne(int id) {
         String sql = "select movieid, name, duration, rating from movies where movieid = ?";
         Object[] parameters = new Object[] { id };
@@ -53,7 +55,7 @@ public class MovieDAOImp implements MovieDAO{
         return movie;
     }
 
-    //Find all is used to display all the products on a page
+    //Find all the movies and return a list of movies with all their characteristics
     public List<Movie> findAll() {
         String sql = "select * from movies";
         RowMapper<Movie> mapper = new MovieRowMapper();
